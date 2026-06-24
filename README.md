@@ -1,4 +1,5 @@
 # Automated Copywriting & Tone Transformer
+This project is powered by DecodeLabs as part of the 2026 Generative AI Industrial Training Kit.
 
 This project is a dynamic orchestration engine designed to automate the generation of professional marketing copy. It leverages generative AI to transform raw product descriptions into platform-specific content (LinkedIn, Instagram, Email) by precisely tuning creative hyper-parameters like Temperature and Top_P.
 
