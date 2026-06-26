@@ -1,4 +1,6 @@
-Automated Copywriting & Tone Transformer This project is a dynamic orchestration engine designed to automate the generation of professional marketing copy. Developed as part of the DecodeLabs Generative AI Industrial Training Kit (**2026**), it enables users to transform raw product descriptions into platform-specific content (LinkedIn, Instagram, Email) by precisely tuning creative hyper-parameters like Temperature and Top_P.
+Automated Copywriting & Tone Transformer
+
+This project is a dynamic orchestration engine designed to automate the generation of professional marketing copy. Developed as part of the DecodeLabs Generative AI Industrial Training Kit (**2026**), it enables users to transform raw product descriptions into platform-specific content (LinkedIn, Instagram, Email) by precisely tuning creative hyper-parameters like Temperature and Top_P.
 
 ### Key Features
 
@@ -26,17 +28,26 @@ How to Run ## Prerequisites Ensure you have Python 3.10+ installed on your syste
 
 Install the required dependencies:
 
-Bash pip install -r requirements.txt ## Configuration Create a file named .env in the root directory.
+    ```Bash
+    pip install -r requirements.txt
+
+## Configuration
+
+Create a file named `.env` in the root directory.
 
 Add your Groq **API** key to the file:
 
-Plaintext GROQ_API_KEY=gsk_your_actual_key_here Note: Never commit your .env file to version control.
+    ```Bash
+    GROQ_API_KEY=gsk_your_actual_key_here
 
 ## Execution
 
 Launch the interactive web interface:
 
-Bash streamlit run app.py This will open a local browser window  where you can start generating copy.
+    ```Bash
+    streamlit run app.py
+
+This will open a local browser window where you can start generating copy.
 
 ### Key Skills Demonstrated
 
