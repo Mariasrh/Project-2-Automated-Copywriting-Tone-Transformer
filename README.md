@@ -2,7 +2,7 @@
 
 This project is a dynamic orchestration engine designed to automate the generation of professional marketing copy. Developed as part of the DecodeLabs Generative AI Industrial Training Kit (**2026**), it enables users to transform raw product descriptions into platform-specific content (LinkedIn, Instagram, Email) by precisely tuning creative hyper-parameters like Temperature and Top_P.
 
-### Key Features
+## Key Features
 
 Dynamic Template Compilation: Uses structured templates to inject user-defined variables (Product_Name, Platform, Tone) into prompts, ensuring consistent brand voice.
 
@@ -15,7 +15,7 @@ Parameter Control: Offers granular control over model creativity via adjustable 
 Scalable Pipeline: Designed to build scalable content pipelines through pure inference logic.
 
 
-### Project Structure
+## Project Structure
 
 app.py: The core Streamlit application providing the interactive user interface and asynchronous **API** orchestration.
 
@@ -30,7 +30,7 @@ requirements.txt: Project dependencies including streamlit, openai, httpx, and p
 
 Install the required dependencies:
 
-    ```Bash
+    
     pip install -r requirements.txt
 
 ## Configuration
@@ -39,14 +39,14 @@ Create a file named `.env` in the root directory.
 
 Add your Groq **API** key to the file:
 
-    ```Bash
+    
     GROQ_API_KEY=gsk_your_actual_key_here
 
 ## Execution
 
 Launch the interactive web interface:
 
-    ```Bash
+    
     streamlit run app.py
 
 This will open a local browser window where you can start generating copy.
