@@ -1,73 +1,51 @@
-import tkinter as tk
-from tkinter import scrolledtext
-import csv
-import asyncio
-import httpx
-import threading
 import os
+import asyncio
+from openai import AsyncOpenAI
 
-API_KEY = os.getenv("GEMINI_API_KEY")
-MODEL_NAME = "gemini-1.5-flash"
-API_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL_NAME}:generateContent?key={API_KEY}"
+# Initialize client (Groq is OpenAI-compatible)
+client = AsyncOpenAI(
+    api_key=os.environ.get("GROQ_API_KEY"),
+    base_url="https://api.groq.com/openai/v1"
+)
 
-MASTER_TEMPLATE = "Rédige une copie marketing pour le produit : {product_name}. Plateforme : {platform}. Ton : {tone}. Contraintes : {constraints}"
-PLATFORM_CONSTRAINTS = {
-    "LinkedIn": "Professionnel, hashtags, 150-300 mots.",
-    "Instagram": "Visuel, emojis, max 50 mots.",
-    "Email": "Persuasif, objet accrocheur, structuré."
+# Template Engine: Separates prompt structure from logic
+PROMPT_TEMPLATES = {
+    "LinkedIn": "Act as a professional B2B marketer. Write a LinkedIn post for {product_name}. Tone: {tone}. Use professional, industry-focused language.",
+    "Instagram": "Act as a lifestyle influencer. Write an Instagram caption for {product_name}. Tone: {tone}. Use engaging, fun language with emojis and hashtags.",
+    "Email": "Act as a direct-response copywriter. Write a sales email for {product_name}. Tone: {tone}. Focus on benefits and a strong call-to-action."
 }
 
-async def generate_copy(client, product_name, platform, tone):
-    constraints = PLATFORM_CONSTRAINTS.get(platform, "Concis et engageant.")
-    prompt = MASTER_TEMPLATE.format(product_name=product_name, platform=platform, tone=tone, constraints=constraints)
+async def generate_copy(product_name, platform, tone, temp, top_p):
+    # Dynamic Compilation
+    prompt = PROMPT_TEMPLATES.get(platform).format(
+        product_name=product_name,
+        tone=tone
+    )
+    
+    # Inference Tuning
+    response = await client.chat.completions.create(
+        messages=[{"role": "user", "content": prompt}],
+        model="llama-3.3-70b-versatile",
+        temperature=temp,
+        top_p=top_p
+    )
+    
+    return f"--- {platform} ---\n{response.choices[0].message.content}"
 
-    payload = {
-        "contents": [{"parts": [{"text": prompt}]}]
-    }
+async def main():
+    # User Input Simulation
+    requests = [
+        {"product": "Eco-Friendly Water Bottle", "platform": "LinkedIn", "tone": "Formal", "temp": 0.2, "top_p": 0.9},
+        {"product": "Eco-Friendly Water Bottle", "platform": "Instagram", "tone": "Energetic", "temp": 0.9, "top_p": 1.0}
+    ]
+    
+    tasks = [generate_copy(r["product"], r["platform"], r["tone"], r["temp"], r["top_p"]) for r in requests]
+    
+    # Concurrency Management: Executing requests in parallel
+    results = await asyncio.gather(*tasks)
+    
+    for res in results:
+        print(res + "\n")
 
-    try:
-        response = await client.post(API_URL, json=payload, timeout=30.0)
-        
-        if response.status_code == 200:
-            data = response.json()
-            text = data['candidates'][0]['content']['parts'][0]['text']
-            return f"--- {product_name} ---\n{text}"
-        else:
-            return f"Error {response.status_code} for {product_name}: {response.text}"
-    except Exception as e:
-        return f"Error for {product_name}: {str(e)}"
-
-async def process_csv(text_widget):
-    if not os.path.exists('data.csv'):
-        text_widget.insert(tk.END, "Error: data.csv file missing.\n")
-        return
-
-    async with httpx.AsyncClient() as client:
-        with open('data.csv', mode='r', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
-            tasks = [generate_copy(client, row['Product_Name'], row['Platform'], row['Tone']) for row in reader]
-            
-            results = await asyncio.gather(*tasks)
-            for output in results:
-                text_widget.insert(tk.END, f"{output}\n{'-'*30}\n")
-                text_widget.see(tk.END)
-
-def run_async_loop(text_widget):
-    asyncio.run(process_csv(text_widget))
-
-def start_process():
-    result_area.delete(1.0, tk.END)
-    threading.Thread(target=run_async_loop, args=(result_area,), daemon=True).start()
-
-#  GUI 
-root = tk.Tk()
-root.title("Marketing Tone Transformer")
-root.geometry("500x600")
-
-tk.Label(root, text="Batch Copy Generator", font=("Arial", 14, "bold")).pack(pady=10)
-tk.Button(root, text="Start Processing", command=start_process, bg="#2196F3", fg="white").pack(pady=5)
-
-result_area = scrolledtext.ScrolledText(root, width=60, height=25)
-result_area.pack(pady=10)
-
-root.mainloop()
+if __name__ == "__main__":
+    asyncio.run(main())
