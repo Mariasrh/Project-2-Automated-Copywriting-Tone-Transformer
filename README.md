@@ -1,72 +1,49 @@
-Automated Copywriting & Tone Transformer
-========================================
+Automated Copywriting & Tone Transformer This project is a dynamic orchestration engine designed to automate the generation of professional marketing copy. Developed as part of the DecodeLabs Generative AI Industrial Training Kit (**2026**), it enables users to transform raw product descriptions into platform-specific content (LinkedIn, Instagram, Email) by precisely tuning creative hyper-parameters like Temperature and Top_P.
 
-This project is a dynamic orchestration engine designed to automate the generation of professional marketing copy. Developed as part of the **DecodeLabs Generative AI Industrial Training Kit (2026)**, it enables users to transform raw product descriptions into platform-specific content (LinkedIn, Instagram, Email) by precisely tuning creative hyper-parameters like Temperature and Top\_P.
+### Key Features
 
-Key Features
-------------
+Dynamic Template Compilation: Uses structured templates to inject user-defined variables (Product_Name, Platform, Tone) into prompts, ensuring consistent brand voice.
 
-*   **Dynamic Template Compilation:** Uses structured templates to inject user-defined variables (Product\_Name, Platform, Tone) into prompts, ensuring consistent brand voice.
-    
-*   **Interactive GUI:** Built with **Streamlit**, providing an intuitive interface to control inference parameters and generate content in real-time.
-    
-*   **Asynchronous Inference:** Utilizes asyncio and the openai SDK to manage non-blocking API requests efficiently.
-    
-*   **Parameter Control:** Offers granular control over model creativity via adjustable sliders for **Temperature** and **Top\_P**.
-    
-*   **Scalable Pipeline:** Designed to build scalable content pipelines through pure inference logic.
-    
+Interactive **GUI**: Built with Streamlit, providing an intuitive interface to control inference parameters and generate content in real-time.
 
-Project Structure
------------------
+Asynchronous Inference: Utilizes asyncio and the openai **SDK** to manage non-blocking **API** requests efficiently.
 
-*   app.py: The core Streamlit application providing the interactive user interface and asynchronous API orchestration.
-    
-*   requirements.txt: Project dependencies including streamlit, openai, httpx, and python-dotenv.
-    
-*   .gitignore: Ensures secure handling of environment variables (like API keys) and excludes temporary system files.
-    
+Parameter Control: Offers granular control over model creativity via adjustable sliders for Temperature and Top_P.
 
-How to Run
-----------
+Scalable Pipeline: Designed to build scalable content pipelines through pure inference logic.
 
-### 1\. Prerequisites
+### Project Structure
 
-Ensure you have **Python 3.10+** installed on your system.
+app.py: The core Streamlit application providing the interactive user interface and asynchronous **API** orchestration.
 
-### 2\. Installation
+requirements.txt: Project dependencies including streamlit, openai, httpx, and python-dotenv.
+
+.gitignore: Ensures secure handling of environment variables (like **API** keys) and excludes temporary system files.
+
+How to Run ## Prerequisites Ensure you have Python 3.10+ installed on your system.
+
+## Installation
 
 Install the required dependencies:
 
-Bash
+Bash pip install -r requirements.txt ## Configuration Create a file named .env in the root directory.
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   pip install -r requirements.txt   `
+Add your Groq **API** key to the file:
 
-### 3\. Configuration
+Plaintext GROQ_API_KEY=gsk_your_actual_key_here Note: Never commit your .env file to version control.
 
-1.  Create a file named .env in the root directory.
-    
-2.  PlaintextGROQ\_API\_KEY=gsk\_your\_actual\_key\_here_Note: Never commit your .env file to version control._
-    
-
-### 4\. Execution
+## Execution
 
 Launch the interactive web interface:
 
-Bash
+Bash streamlit run app.py This will open a local browser window  where you can start generating copy.
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   streamlit run app.py   `
+### Key Skills Demonstrated
 
-This will open a local browser window (usually at http://localhost:8501) where you can start generating copy.
+Dynamic Prompt Compilation: Managing variable injection for multi-platform output.
 
-Key Skills Demonstrated
------------------------
+Inference Tuning: Mastering the balance between creativity and structure using **LLM** hyper-parameters.
 
-*   **Dynamic Prompt Compilation**: Managing variable injection for multi-platform output.
-    
-*   **Inference Tuning**: Mastering the balance between creativity and structure using LLM hyper-parameters.
-    
-*   **Asynchronous Integration**: Optimizing network I/O for efficient Generative AI applications.
-    
+Asynchronous Integration: Optimizing network I/O for efficient Generative AI applications.
 
-_Powered by DecodeLabs | 2026 Batch_
+Powered by DecodeLabs | **2026** Batch
